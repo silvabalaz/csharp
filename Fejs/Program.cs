@@ -18,7 +18,7 @@ namespace Fejs
 
         private Osoba() { }
 
-        Osoba(string _ime, string _prezime)
+        public Osoba(string _ime, string _prezime)
         {
 
             ime = _ime;
@@ -27,10 +27,41 @@ namespace Fejs
         }
 
 
+      }
 
-     
+    class Fejs {
+
+        public List<Osoba> osobe;
+
+        public Fejs()
+        {
+            osobe = new List<Osoba>();
+        }
+
+
+        public Fejs(List<Osoba> A)
+        {
+            osobe = new List<Osoba>(A);
+        }
+
+        public Fejs(Osoba A)
+        {
+            osobe = new List<Osoba>();
+            osobe.Add(A);
+        }
+
+        public Fejs(string _ime, string _prezime)
+        {
+            osobe = new List<Osoba>();
+            osobe.Add(new Osoba(_ime, _prezime));
+
+        }
+
+
+    
     
     }
+
 
 
     class Program
@@ -38,7 +69,7 @@ namespace Fejs
         static void Main(string[] args)
         {
 
-
+            Console.ReadLine();
         }
     }
 }
