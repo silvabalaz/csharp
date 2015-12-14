@@ -73,7 +73,35 @@ namespace Fejs
 
         }
 
-        public List<Osoba> Prijatelji { get { return prijatelji; } }  
+        public List<Osoba> Prijatelji { get { return prijatelji; } }
+
+
+        public void brisi(Osoba A, int x)
+        {
+
+            for (int i = 0; i < prijatelji.Count; i++)
+                if (prijatelji[i] == A)
+                {
+                    prijatelji.RemoveAt(i);
+                    break;
+                }
+            if (x.Equals(0))
+                A.brisi(this, 1);
+
+        }
+
+        public static Osoba operator +(Osoba A, Osoba B)
+        {
+            A.dodaj(B, 0);
+            return A;
+        }
+
+        public static Osoba operator -(Osoba A, Osoba B)
+        {
+            A.brisi(B, 0);
+            return A;
+        }
+
 
       }
 
@@ -105,6 +133,7 @@ namespace Fejs
 
         }
 
+   
 
     
     
@@ -133,6 +162,14 @@ namespace Fejs
             {
                 Console.WriteLine("Prijatelj:" + o.Ime + " " + o.Prezime);
             
+            }
+            Console.WriteLine("Izbrisani prijatelj A u D:");
+            D.brisi(B,1);
+
+            foreach (Osoba o in Prijatelji)
+            {
+                Console.WriteLine("Prijatelj:" + o.Ime + " " + o.Prezime);
+
             }
             Console.ReadLine();
         }
