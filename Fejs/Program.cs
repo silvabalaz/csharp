@@ -16,15 +16,61 @@ namespace Fejs
         public string Ime { get; set; }
         public string Prezime { get; set; }
 
-        private Osoba() { }
+        public List<Osoba> prijatelji;
 
+        private Osoba() { }
+        
         public Osoba(string _ime, string _prezime)
         {
 
             ime = _ime;
             prezime = _prezime;
+            prijatelji = new List<Osoba>();
 
         }
+
+        public Osoba(Osoba A)
+        {
+            ime = A.ime;
+            prezime = A.prezime;
+            prijatelji = A.prijatelji;
+        }
+
+
+        public void dodaj(Osoba A, int x)
+        {
+
+            int i;
+
+            for ( i = 0; i < prijatelji.Count; i++)
+            {
+                if (A.ime.CompareTo(prijatelji[i].ime) > 0)
+                {
+                    prijatelji.Insert(i, A);
+                    break;
+                }
+                else
+                {
+                    if (A.ime.CompareTo(prijatelji[i].ime) == 0)
+                    {
+                        if (A.prezime.CompareTo(prijatelji[i].prezime) > 0)
+                        {
+                            prijatelji.Insert(i, A);
+                            break;
+                        }
+                    }
+                }
+            }
+            if (i.Equals(prijatelji.Count))
+            {
+                prijatelji.Add(A);
+            }
+
+            if (x.Equals(0))
+                A.dodaj(this, 1);
+
+        }
+
 
 
       }
@@ -69,6 +115,15 @@ namespace Fejs
         static void Main(string[] args)
         {
 
+            Fejs Facebook = new Fejs();
+
+            Osoba A = new Osoba("Ivan", "Ivic");
+            Osoba B = new Osoba("Zeljko", "Zec");
+            Osoba C = new Osoba("Mario", "Maric");
+            Osoba D = new Osoba(A);
+
+
+            Console.WriteLine("Prijatelji osobe D na fejsu:", D.prijatelji);
             Console.ReadLine();
         }
     }
