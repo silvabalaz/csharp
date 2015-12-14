@@ -14,9 +14,11 @@ namespace Fejs
         private string prezime;
 
         public string Ime { get; set; }
-        public string Prezime { get; set; }
+        public string Prezime { get { return prezime; } }
 
         public List<Osoba> prijatelji;
+
+       
 
         private Osoba() { }
         
@@ -71,7 +73,7 @@ namespace Fejs
 
         }
 
-
+        public List<Osoba> Prijatelji { get { return prijatelji; } }  
 
       }
 
@@ -121,9 +123,17 @@ namespace Fejs
             Osoba B = new Osoba("Zeljko", "Zec");
             Osoba C = new Osoba("Mario", "Maric");
             Osoba D = new Osoba(A);
+            D.dodaj(B,2);
+            D.dodaj(A,3);
+            D.dodaj(B,2);
 
-
-            Console.WriteLine("Prijatelji osobe D na fejsu:", D.prijatelji);
+            Console.WriteLine("Prijatelji osobe D na fejsu:" );
+            List<Osoba> Prijatelji = D.Prijatelji;
+            foreach (Osoba o in Prijatelji)
+            {
+                Console.WriteLine("Prijatelj:" + o.Ime + " " + o.Prezime);
+            
+            }
             Console.ReadLine();
         }
     }
