@@ -102,6 +102,21 @@ namespace Fejs
             return A;
         }
 
+        
+        public List<Osoba> MeduPrijatelji(Osoba A)
+        {
+
+            HashSet<Osoba> hashSet1 = new HashSet<Osoba>(A.prijatelji);
+            HashSet<Osoba> hashSet2 = new HashSet<Osoba>(this.prijatelji);
+          
+            hashSet1.IntersectWith(hashSet2);
+            List<Osoba> intersection = hashSet1.ToList();
+
+
+            return intersection;
+        }
+   
+
 
       }
 
@@ -143,7 +158,7 @@ namespace Fejs
             osobe.Add(new Osoba(i, p));
         }
 
-   
+    
 
     
     
@@ -158,14 +173,27 @@ namespace Fejs
 
             Fejs Facebook = new Fejs();
 
-            Osoba A = new Osoba("Ivan", "Ivic");
+            Osoba A = new Osoba("Ivan", "Celinic");
             Osoba B = new Osoba("Zeljko", "Zec");
             Osoba C = new Osoba("Mario", "Maric");
             Osoba D = new Osoba(A);
-            D.dodaj(B,2);
-            D.dodaj(A,3);
-            D.dodaj(B,2);
-           
+            Osoba E = new Osoba("Marko","Kutle");
+
+            E.dodaj(B,0);
+            E.dodaj(A,0);
+            E.dodaj(C,0);
+
+            B.dodaj(A,0);
+            B.dodaj(C,0);
+
+            Console.WriteLine("Zajednicki prijatelji (MeduPrijatelji) osoba B i E:" );
+            List<Osoba> skup = B.MeduPrijatelji(E);
+            foreach(Osoba o in skup)
+            { 
+              Console.WriteLine("Prijatelji zajednicki" + o.Ime + " " + o.Prezime);
+            }
+                 
+
 
             Console.WriteLine("Prijatelji osobe D na fejsu:" );
             List<Osoba> Prijatelji = D.Prijatelji;
@@ -204,6 +232,8 @@ namespace Fejs
                Console.WriteLine("Osoba:" + o.Ime + " " + o.Prezime);
             }
             */
+
+            
 
 
             Console.ReadLine();
