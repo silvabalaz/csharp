@@ -158,7 +158,16 @@ namespace Fejs
             osobe.Add(new Osoba(i, p));
         }
 
-    
+
+        public void izbaci(Osoba A)
+        {
+            osobe.Remove(A);
+        }
+
+        public void izbaci(string i, string p)
+        {
+            osobe.Remove(new Osoba(i, p));
+        }
 
     
     
@@ -187,13 +196,13 @@ namespace Fejs
             B.dodaj(C,0);
 
             Console.WriteLine("Zajednicki prijatelji (MeduPrijatelji) osoba B i E:" );
-            List<Osoba> skup = B.MeduPrijatelji(E);
-            foreach(Osoba o in skup)
+            List<Osoba> zajednickiPrijatelji = B.MeduPrijatelji(E);
+            foreach(Osoba o in zajednickiPrijatelji)
             { 
               Console.WriteLine("Prijatelji zajednicki" + o.Ime + " " + o.Prezime);
             }
-                 
 
+            
 
             Console.WriteLine("Prijatelji osobe D na fejsu:" );
             List<Osoba> Prijatelji = D.Prijatelji;
@@ -225,18 +234,26 @@ namespace Fejs
             Facebook.dodaj(A);
             Facebook.dodaj(B);
             Facebook.dodaj("Silva","Haberl");
-            /*
-            Console.WriteLine("Osobe u Fejsu nakon dodavanja fjama dodaj:");
-            foreach(Osoba o in Facebook)
+            Facebook.dodaj("Ana", "Anic");
+            Facebook.izbaci("Marko", "Kutle");
+
+            for(int i = 0; i < Facebook.osobe.Count; i++)
             {
-               Console.WriteLine("Osoba:" + o.Ime + " " + o.Prezime);
-            }
-            */
-
+                Console.WriteLine("Osobe s Facebooka:" + Facebook.osobe[i].Ime + " " + Facebook.osobe[i].Prezime);     
             
+            }
+                /*
+                Console.WriteLine("Osobe u Fejsu nakon dodavanja fjama dodaj:");
+                foreach(Osoba o in Facebook)
+                {
+                   Console.WriteLine("Osoba:" + o.Ime + " " + o.Prezime);
+                }
+                */
 
 
-            Console.ReadLine();
+
+
+                Console.ReadLine();
         }
     }
 }
