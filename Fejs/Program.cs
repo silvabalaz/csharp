@@ -133,6 +133,16 @@ namespace Fejs
 
         }
 
+        public void dodaj(Osoba A)
+        {
+            osobe.Add(A);
+        }
+
+        public void dodaj(string i, string p)
+        {
+            osobe.Add(new Osoba(i, p));
+        }
+
    
 
     
@@ -155,6 +165,7 @@ namespace Fejs
             D.dodaj(B,2);
             D.dodaj(A,3);
             D.dodaj(B,2);
+           
 
             Console.WriteLine("Prijatelji osobe D na fejsu:" );
             List<Osoba> Prijatelji = D.Prijatelji;
@@ -166,11 +177,28 @@ namespace Fejs
             Console.WriteLine("Izbrisani prijatelj A u D:");
             D.brisi(B,1);
 
+
             foreach (Osoba o in Prijatelji)
             {
                 Console.WriteLine("Prijatelj:" + o.Ime + " " + o.Prezime);
 
             }
+
+
+            D += B;
+
+            foreach (Osoba o in Prijatelji)
+            {
+                Console.WriteLine("Prijatelj:" + o.Ime + " " + o.Prezime);
+
+            }
+
+            Facebook.dodaj(A);
+            Facebook.dodaj(B);
+            Facebook.dodaj("Silva","Haberl");
+
+
+
             Console.ReadLine();
         }
     }
