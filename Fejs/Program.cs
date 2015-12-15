@@ -193,10 +193,17 @@ namespace Fejs
 
             }
 
+           
             Facebook.dodaj(A);
             Facebook.dodaj(B);
             Facebook.dodaj("Silva","Haberl");
-
+            /*
+            Console.WriteLine("Osobe u Fejsu nakon dodavanja fjama dodaj:");
+            foreach(Osoba o in Facebook)
+            {
+               Console.WriteLine("Osoba:" + o.Ime + " " + o.Prezime);
+            }
+            */
 
 
             Console.ReadLine();
