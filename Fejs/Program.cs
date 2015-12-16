@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 namespace Fejs
 {
 
-    
-    class Osoba: IComparable<Osoba> {
+
+    class Osoba : IComparable<Osoba>
+    {
 
         private string ime;
         private string prezime;
@@ -18,10 +19,10 @@ namespace Fejs
 
         public List<Osoba> prijatelji;
 
-       
+
 
         private Osoba() { }
-        
+
         public Osoba(string _ime, string _prezime)
         {
 
@@ -44,7 +45,7 @@ namespace Fejs
 
             int i;
 
-            for ( i = 0; i < prijatelji.Count; i++)
+            for (i = 0; i < prijatelji.Count; i++)
             {
                 if (A.ime.CompareTo(prijatelji[i].ime) > 0)
                 {
@@ -102,13 +103,13 @@ namespace Fejs
             return A;
         }
 
-        
+
         public List<Osoba> MeduPrijatelji(Osoba A)
         {
 
             HashSet<Osoba> hashSet1 = new HashSet<Osoba>(A.prijatelji);
             HashSet<Osoba> hashSet2 = new HashSet<Osoba>(this.prijatelji);
-          
+
             hashSet1.IntersectWith(hashSet2);
             List<Osoba> intersection = hashSet1.ToList();
 
@@ -202,11 +203,9 @@ namespace Fejs
 
 
 
-       
+    
 
     }
-
-
     class Fejs : IEnumerable<Osoba>{
 
         public List<Osoba> osobe;
@@ -289,6 +288,26 @@ namespace Fejs
            }
         
         
+        }
+
+
+        public List<Osoba> this[string prezime]
+        {
+            get
+            {
+                List<Osoba> ubaci = new List<Osoba>();
+                if (prezime.Equals("*"))
+                {
+                    foreach (Osoba A in this.osobe)
+                        ubaci.Add(A);
+                    return ubaci;
+                }
+
+                foreach (Osoba A in this.osobe)
+                    if (prezime.Equals(A.Prezime))
+                        ubaci.Add(A);
+                return ubaci;
+            }
         }
 
     
@@ -402,6 +421,33 @@ namespace Fejs
                 }
 
 
+              
+                    
+                
+
+
+
+                Console.WriteLine("Ispisi sve osobe sa prezimenom Haberl koje su na Fejsu");
+                foreach (Osoba o in Facebook["Haberl"]) // ispisi sve ide sa Fejsa
+                    Console.WriteLine(o.Ime + " " + o.Prezime);
+                Console.WriteLine("--------------------------------------------------------");
+
+
+
+                Console.WriteLine("****************************************");
+                Console.WriteLine("Sve osobe na facebooku: ");
+                foreach (Osoba o in Facebook["*"])
+                {
+                    Console.WriteLine(o.Ime + " " + o.Prezime);
+                }
+                Console.WriteLine("****************************************");
+
+            /*
+                Console.WriteLine("Ispisi sve osobe sa imenom Silva koje su na Fejsu");
+                foreach (Osoba o in Facebook["*"]["Silva"]) 
+                    Console.WriteLine(o.ToString());
+                Console.WriteLine("--------------------------------------------------------");
+            */
 
 
                 Console.ReadLine();
