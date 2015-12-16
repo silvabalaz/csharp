@@ -171,7 +171,7 @@ namespace Fejs
 
     }
 
-    class Fejs {
+    class Fejs : IEnumerable<Osoba>{
 
         public List<Osoba> osobe;
 
@@ -220,7 +220,20 @@ namespace Fejs
             osobe.Remove(new Osoba(i, p));
         }
 
-    
+
+        public IEnumerator<Osoba> GetEnumerator()
+        {
+
+            foreach (Osoba o in this.osobe)
+                yield return o;
+
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
     
     }
 
@@ -287,19 +300,19 @@ namespace Fejs
             Facebook.dodaj("Silva","Haberl");
             Facebook.dodaj("Ana", "Anic");
             Facebook.izbaci("Marko", "Kutle");
-
+            /*
             for(int i = 0; i < Facebook.osobe.Count; i++)
             {
                 Console.WriteLine("Osobe s Facebooka:" + Facebook.osobe[i].Ime + " " + Facebook.osobe[i].Prezime);     
             
-            }
-                /*
+            }*/
+                
                 Console.WriteLine("Osobe u Fejsu nakon dodavanja fjama dodaj:");
                 foreach(Osoba o in Facebook)
                 {
                    Console.WriteLine("Osoba:" + o.Ime + " " + o.Prezime);
                 }
-                */
+                
 
 
 
