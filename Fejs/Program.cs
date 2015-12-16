@@ -8,7 +8,7 @@ namespace Fejs
 {
 
     
-    class Osoba {
+    class Osoba: IComparable<Osoba> {
 
         private string ime;
         private string prezime;
@@ -115,10 +115,61 @@ namespace Fejs
 
             return intersection;
         }
-   
 
+        #region IComparable Members
 
-      }
+        public int CompareTo(Osoba o)
+        {
+            return prezime.CompareTo(o.prezime);
+        }
+
+        #endregion
+
+        class UsporediPoImenu : IComparer<Osoba>
+        {
+
+            #region IComparer Members
+
+            public int Compare(Osoba x, Osoba y)
+            {
+
+                return x.ime.CompareTo(y.ime);
+
+            }
+
+            #endregion
+
+        }
+
+        class UsporediPoPrezimenu : IComparer<Osoba>
+        {
+            #region IComparer Members
+
+            public int Compare(Osoba x, Osoba y)
+            {
+
+                return x.ime.CompareTo(y.ime);
+
+            }
+
+            #endregion
+        }
+
+        class UsporediPoBrojuPrijatelja : IComparer<Osoba>
+        {
+            #region IComparer Members
+
+            public int Compare(Osoba x, Osoba y)
+            {
+
+                return x.prijatelji.Count.CompareTo(y.prijatelji.Count);
+
+            }
+
+            #endregion
+        }
+
+    }
 
     class Fejs {
 
