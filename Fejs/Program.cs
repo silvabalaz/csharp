@@ -13,7 +13,7 @@ namespace Fejs
         private string ime;
         private string prezime;
 
-        public string Ime { get; set; }
+        public string Ime { get { return ime; } }
         public string Prezime { get { return prezime; } }
 
         public List<Osoba> prijatelji;
@@ -125,6 +125,13 @@ namespace Fejs
 
         #endregion
 
+        public enum TipUsporedbe
+        {
+            BrojPrijatelja,
+            Ime,
+            Prezime
+        };
+
         class UsporediPoImenu : IComparer<Osoba>
         {
 
@@ -148,7 +155,7 @@ namespace Fejs
             public int Compare(Osoba x, Osoba y)
             {
 
-                return x.ime.CompareTo(y.ime);
+                return x.prezime.CompareTo(y.prezime);
 
             }
 
@@ -169,7 +176,36 @@ namespace Fejs
             #endregion
         }
 
+        internal static IComparer<Osoba> SortBrojPrijatelja
+        {
+            get
+            {
+                return ((IComparer<Osoba>)new Osoba.UsporediPoBrojuPrijatelja());
+            }
+        }
+
+        internal static IComparer<Osoba> SortIme
+        {
+            get
+            {
+                return ((IComparer<Osoba>)new Osoba.UsporediPoImenu());
+            }
+        }
+
+        internal static IComparer<Osoba> SortPrezime
+        {
+            get
+            {
+                return ((IComparer<Osoba>)new Osoba.UsporediPoPrezimenu());
+            }
+        }
+
+
+
+       
+
     }
+
 
     class Fejs : IEnumerable<Osoba>{
 
@@ -234,6 +270,27 @@ namespace Fejs
             return GetEnumerator();
         }
 
+
+
+        public void Sort(Osoba.TipUsporedbe tipUsporedbe)
+        {
+            switch (tipUsporedbe)
+            { 
+                case Osoba.TipUsporedbe.BrojPrijatelja:
+                    osobe.Sort(Osoba.SortBrojPrijatelja);
+                    break;
+                case Osoba.TipUsporedbe.Ime:
+                    osobe.Sort(Osoba.SortIme);
+                    break;
+                case Osoba.TipUsporedbe.Prezime:
+                    osobe.Sort(Osoba.SortPrezime);
+                    break;
+
+           }
+        
+        
+        }
+
     
     }
 
@@ -245,12 +302,15 @@ namespace Fejs
         {
 
             Fejs Facebook = new Fejs();
-
+            
             Osoba A = new Osoba("Ivan", "Celinic");
             Osoba B = new Osoba("Zeljko", "Zec");
             Osoba C = new Osoba("Mario", "Maric");
             Osoba D = new Osoba(A);
             Osoba E = new Osoba("Marko","Kutle");
+            Osoba F = new Osoba("Ines","Vujevic");
+            Osoba G = new Osoba("Andrea","Mokrovic");
+            Osoba H = new Osoba("Sanela","Bisek");
 
             E.dodaj(B,0);
             E.dodaj(A,0);
@@ -258,6 +318,10 @@ namespace Fejs
 
             B.dodaj(A,0);
             B.dodaj(C,0);
+            B.dodaj(F, 0);
+            B.dodaj(G, 0);
+            B.dodaj(H, 0);
+
 
             Console.WriteLine("Zajednicki prijatelji (MeduPrijatelji) osoba B i E:" );
             List<Osoba> zajednickiPrijatelji = B.MeduPrijatelji(E);
@@ -266,7 +330,9 @@ namespace Fejs
               Console.WriteLine("Prijatelji zajednicki" + o.Ime + " " + o.Prezime);
             }
 
-            
+           
+
+
 
             Console.WriteLine("Prijatelji osobe D na fejsu:" );
             List<Osoba> Prijatelji = D.Prijatelji;
@@ -298,21 +364,42 @@ namespace Fejs
             Facebook.dodaj(A);
             Facebook.dodaj(B);
             Facebook.dodaj("Silva","Haberl");
-            Facebook.dodaj("Ana", "Anic");
-            Facebook.izbaci("Marko", "Kutle");
-            /*
-            for(int i = 0; i < Facebook.osobe.Count; i++)
-            {
-                Console.WriteLine("Osobe s Facebooka:" + Facebook.osobe[i].Ime + " " + Facebook.osobe[i].Prezime);     
-            
-            }*/
+            Facebook.dodaj("Ana", "Zinic");
+            Facebook.dodaj(E);
+            Facebook.dodaj(F);
+            Facebook.dodaj(G);
+            Facebook.izbaci(H);
+         
                 
                 Console.WriteLine("Osobe u Fejsu nakon dodavanja fjama dodaj:");
                 foreach(Osoba o in Facebook)
                 {
                    Console.WriteLine("Osoba:" + o.Ime + " " + o.Prezime);
                 }
-                
+
+                Console.WriteLine("Sort po imenu:");
+
+                Facebook.Sort(Osoba.TipUsporedbe.Ime);
+                foreach (Osoba o in Facebook)
+                {
+                    Console.WriteLine("Osoba:" +  o.Ime + " " + o.Prezime);
+                }
+
+                Console.WriteLine("Sort po prezimenu:");
+
+                Facebook.Sort(Osoba.TipUsporedbe.Prezime);
+                foreach (Osoba o in Facebook)
+                {
+                    Console.WriteLine("Osoba:" +  o.Ime + " " + o.Prezime);
+                }
+
+                Console.WriteLine("Sort po BrojuPrijatelja:");
+
+                Facebook.Sort(Osoba.TipUsporedbe.BrojPrijatelja);
+                foreach (Osoba o in Facebook)
+                {
+                    Console.WriteLine("Osoba:"  + o.Ime + "  " + o.Prezime);
+                }
 
 
 
