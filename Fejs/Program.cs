@@ -268,6 +268,13 @@ namespace Fejs
                     this.osobe[j].prijatelji.Remove(A);
                 }
             this.osobe.Remove(A);
+
+            for (int j = 0; j < this.osobe.Count; j++)
+                if (this.osobe[j].prijatelji.Count==0)
+                {
+                    this.osobe.Remove(this.osobe[j]);
+                }
+               
           
         }
 
@@ -353,45 +360,40 @@ namespace Fejs
 
             B.dodaj(A,0);
             B.dodaj(C,0);
-            B.dodaj(F, 0);
-            B.dodaj(G, 0);
-            B.dodaj(H, 0);
-            B.brisi(A,1);
+            B.dodaj(F,0);
+            B.dodaj(G,0);
+            B.dodaj(H,0);
+            B.brisi(A,0);
 
+            Console.WriteLine("****************************************");
             Console.WriteLine("Zajednicki prijatelji (MeduPrijatelji) osoba B i E:" );
             List<Osoba> zajednickiPrijatelji = B.MeduPrijatelji(E);
             foreach(Osoba o in zajednickiPrijatelji)
             { 
-              Console.WriteLine("Prijatelji zajednicki" + o.Ime + " " + o.Prezime);
+              Console.WriteLine(o.Ime + " " + o.Prezime);
             }
-
-           
-
-
-
+            Console.WriteLine("****************************************");
             Console.WriteLine("Prijatelji osobe D na fejsu:" );
             List<Osoba> Prijatelji = D.Prijatelji;
             foreach (Osoba o in Prijatelji)
             {
-                Console.WriteLine("Prijatelj:" + o.Ime + " " + o.Prezime);
+                Console.WriteLine(o.Ime + " " + o.Prezime);
             
             }
+            Console.WriteLine("****************************************");
             Console.WriteLine("Izbrisani prijatelj A u D:");
             D.brisi(B,1);
-
-
             foreach (Osoba o in Prijatelji)
             {
-                Console.WriteLine("Prijatelj:" + o.Ime + " " + o.Prezime);
+                Console.WriteLine( o.Ime + " " + o.Prezime);
 
             }
-
-
+            Console.WriteLine("****************************************");
             D += B;
 
             foreach (Osoba o in Prijatelji)
             {
-                Console.WriteLine("Prijatelj:" + o.Ime + " " + o.Prezime);
+                Console.WriteLine(o.Ime + " " + o.Prezime);
 
             }
 
@@ -403,40 +405,40 @@ namespace Fejs
             Facebook.dodaj(E);
             Facebook.dodaj(F);
             Facebook.dodaj(G);
-            Facebook.izbaci(H);
-         
-                
-                Console.WriteLine("Osobe u Fejsu nakon dodavanja fjama dodaj:");
+            
+
+                Console.WriteLine("****************************************");
+                Console.WriteLine("Osobe u Fejsu nakon dodavanja f-jama dodaj:");
                 foreach(Osoba o in Facebook)
                 {
-                   Console.WriteLine("Osoba:" + o.Ime + " " + o.Prezime);
+                   Console.WriteLine(o.Ime + " " + o.Prezime);
                 }
-
+                Console.WriteLine("****************************************");
                 Console.WriteLine("Sort po imenu:");
-
                 Facebook.Sort(Osoba.TipUsporedbe.Ime);
                 foreach (Osoba o in Facebook)
                 {
-                    Console.WriteLine("Osoba:" +  o.Ime + " " + o.Prezime);
+                    Console.WriteLine(o.Ime + " " + o.Prezime);
                 }
-
+                Console.WriteLine("****************************************");
                 Console.WriteLine("Sort po prezimenu:");
-
+                
                 Facebook.Sort(Osoba.TipUsporedbe.Prezime);
                 foreach (Osoba o in Facebook)
                 {
-                    Console.WriteLine("Osoba:" +  o.Ime + " " + o.Prezime);
+                    Console.WriteLine(o.Ime + " " + o.Prezime);
                 }
-
+                Console.WriteLine("****************************************");
                 Console.WriteLine("Sort po BrojuPrijatelja:");
 
                 Facebook.Sort(Osoba.TipUsporedbe.BrojPrijatelja);
                 foreach (Osoba o in Facebook)
                 {
-                    Console.WriteLine("Osoba:"  + o.Ime + "  " + o.Prezime);
+                    Console.WriteLine(o.Ime + "  " + o.Prezime);
                 }
-
-
+                Console.WriteLine("****************************************");
+                Console.WriteLine("****************************************");
+                Console.WriteLine("****************************************");
               
                     
                 
@@ -446,25 +448,27 @@ namespace Fejs
                 Console.WriteLine("Ispisi sve osobe sa prezimenom Haberl koje su na Fejsu");
                 foreach (Osoba o in Facebook["Haberl"]) // ispisi sve ide sa Fejsa
                     Console.WriteLine(o.Ime + " " + o.Prezime);
-                Console.WriteLine("--------------------------------------------------------");
-
-
-
                 Console.WriteLine("****************************************");
+
                 Console.WriteLine("Sve osobe na facebooku: ");
                 foreach (Osoba o in Facebook["*"])
                 {
                     Console.WriteLine(o.Ime + " " + o.Prezime);
                 }
                 Console.WriteLine("****************************************");
+                Facebook.izbaci(A);
+                Facebook.izbaci(B);
+                Facebook.izbaci(E);
+                Facebook.izbaci(F);
+                Facebook.izbaci(G);
 
-            /*
-                Console.WriteLine("Ispisi sve osobe sa imenom Silva koje su na Fejsu");
-                foreach (Osoba o in Facebook["*"]["Silva"]) 
-                    Console.WriteLine(o.ToString());
-                Console.WriteLine("--------------------------------------------------------");
-            */
 
+                Console.WriteLine("Sve osobe na facebooku nakon izbacivanja funkcijom izbaci klase Fejs: ");
+                foreach (Osoba o in Facebook["*"])
+                {
+                    Console.WriteLine(o.Ime + " " + o.Prezime);
+                }
+                Console.WriteLine("****************************************");
 
                 Console.ReadLine();
         }
