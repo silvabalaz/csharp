@@ -13,7 +13,7 @@ namespace Fejs
 
         private string ime;
         private string prezime;
-
+      
         public string Ime { get { return ime; } }
         public string Prezime { get { return prezime; } }
 
@@ -25,7 +25,7 @@ namespace Fejs
 
         public Osoba(string _ime, string _prezime)
         {
-
+          
             ime = _ime;
             prezime = _prezime;
             prijatelji = new List<Osoba>();
@@ -209,7 +209,7 @@ namespace Fejs
     class Fejs : IEnumerable<Osoba>{
 
         public List<Osoba> osobe;
-
+        
         public Fejs()
         {
             osobe = new List<Osoba>();
@@ -247,12 +247,28 @@ namespace Fejs
 
         public void izbaci(Osoba A)
         {
-            osobe.Remove(A);
+
+            for (int i = 0; i < this.osobe.Count; i++)
+                if (this.osobe[i].prijatelji.Contains(A))
+                {
+                    this.osobe[i].prijatelji.Remove(A);
+                }
+            this.osobe.Remove(A);
+
+
+          
         }
 
         public void izbaci(string i, string p)
         {
-            osobe.Remove(new Osoba(i, p));
+            Osoba A = new Osoba(i,p);
+            for (int j = 0; j < this.osobe.Count; j++)
+                if (this.osobe[j].prijatelji.Contains(A))
+                {
+                    this.osobe[j].prijatelji.Remove(A);
+                }
+            this.osobe.Remove(A);
+          
         }
 
 
@@ -302,7 +318,7 @@ namespace Fejs
                         ubaci.Add(A);
                     return ubaci;
                 }
-
+               
                 foreach (Osoba A in this.osobe)
                     if (prezime.Equals(A.Prezime))
                         ubaci.Add(A);
@@ -340,7 +356,7 @@ namespace Fejs
             B.dodaj(F, 0);
             B.dodaj(G, 0);
             B.dodaj(H, 0);
-
+            B.brisi(A,1);
 
             Console.WriteLine("Zajednicki prijatelji (MeduPrijatelji) osoba B i E:" );
             List<Osoba> zajednickiPrijatelji = B.MeduPrijatelji(E);
