@@ -325,11 +325,14 @@ namespace Fejs
                         ubaci.Add(A);
                     return ubaci;
                 }
-               
-                foreach (Osoba A in this.osobe)
-                    if (prezime.Equals(A.Prezime))
-                        ubaci.Add(A);
-                return ubaci;
+                try
+                {
+                    foreach (Osoba A in this.osobe)
+                        if (prezime.Equals(A.Prezime))
+                            ubaci.Add(A);
+                    return ubaci;
+                }
+                catch (Exception e) { throw e; }
             }
         }
 
@@ -439,14 +442,17 @@ namespace Fejs
                 Console.WriteLine("****************************************");
                 Console.WriteLine("****************************************");
                 Console.WriteLine("****************************************");
-              
-                    
-                
+
+
+                Console.WriteLine("Ispisi sve osobe sa prezimenom Tudman koje su na Fejsu");
+                foreach (Osoba o in Facebook["Tudman"]) 
+                    Console.WriteLine(o.Ime + " " + o.Prezime);
+                Console.WriteLine("****************************************");
 
 
 
                 Console.WriteLine("Ispisi sve osobe sa prezimenom Haberl koje su na Fejsu");
-                foreach (Osoba o in Facebook["Haberl"]) // ispisi sve ide sa Fejsa
+                foreach (Osoba o in Facebook["Haberl"]) 
                     Console.WriteLine(o.Ime + " " + o.Prezime);
                 Console.WriteLine("****************************************");
 
