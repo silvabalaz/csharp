@@ -1,5 +1,5 @@
 # csharp
-
+(Računarski praktikum 3, kolegij)
 Osoba,Fejs
 
 Klasa Osoba ima ime, prezime te privatni konstruktor.
